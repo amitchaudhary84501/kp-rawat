@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Message</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="page" id="page1" active>
+        <div class="content">
+            <h1>What's your name?</h1>
+            <input type="text" id="nameInput" placeholder="Enter your name">
+            <button onclick="nextPage(1)">Next</button>
+        </div>
+    </div>
+
+    <div class="page" id="page2">
+        <div class="content">
+            <h1>Yuvika,</h1>
+            <p>I really enjoyed meeting you...from zog</p>
+            <button onclick="nextPage(2)">Next</button>
+        </div>
+    </div>
+
+    <div class="page" id="page3">
+        <div class="content">
+            <h1>I wanted to share something important with you...</h1>
+            <button onclick="nextPage(3)">Next</button>
+        </div>
+    </div>
+
+    <div class="page" id="page4">
+        <div class="content">
+            <h1>It's something between you and me...</h1>
+            <button onclick="nextPage(4)">Next</button>
+        </div>
+    </div>
+
+    <div class="page" id="page5">
+        <div class="content">
+            <h1>Don't tell anyone...</h1>
+            <button onclick="nextPage(5)">Next</button>
+        </div>
+    </div>
+
+    <div class="page" id="page6">
+        <div class="content">
+            <h1>🤫</h1>
+            <button onclick="nextPage(6)">Next</button>
+        </div>
+    </div>
+
+    <div class="page" id="page7">
+        <div class="content">
+            <h1>Dekho mai risk le rha hun...</h1>
+            <div class="button-container">
+                <button onclick="previousPage(7)" class="back-btn">Back</button>
+                <button onclick="nextPage(7)">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="page" id="page8">
+        <div class="content">
+            <div class="image-container">
+                <img src="WhatsApp Image 2025-03-20 at 20.52.55_750fc292.jpg" alt="Special moment" class="special-image">
+            </div>
+            <div class="button-container">
+                <button onclick="previousPage(8)" class="back-btn">Back</button>
+                <button onclick="nextPage(8)">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="page" id="page9">
+        <div class="content">
+            <div class="image-container">
+                <img src="WhatsApp Image 2025-03-20 at 20.52.55_922adc69.jpg" alt="Special moment" class="special-image">
+            </div>
+            <div class="button-container">
+                <button onclick="previousPage(9)" class="back-btn">Back</button>
+                <button onclick="nextPage(9)">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="page" id="page10">
+        <div class="content">
+            <h1>Will you be my partner?</h1>
+            <div class="choice-buttons">
+                <button onclick="showResponse('yes')" class="yes-btn">Yes</button>
+                <button onclick="showResponse('no')" class="no-btn">No</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="page" id="response-yes">
+        <div class="content">
+            <h1>Thank you for saying Yes! ❤️</h1>
+            <p>You've made me the happiest person!</p>
+            <button onclick="restartJourney()">Start Over</button>
+        </div>
+    </div>
+
+    <div class="page" id="response-no">
+        <div class="content">
+            <h1>In my heart you'll forever stay</h1>
+            <p>No matter the distance, no matter the time,<br>
+            My love for you will always shine.<br><br>
+            With each passing day, I fall even more,<br>
+            Into a love I can't ignore.<br><br>
+            I hope you feel the same way too,<br>
+            For my feelings are honest, pure, and true.<br><br>
+            Will you be mine forevermore?<br>
+            Together, let's explore what love has in store.<br><br>
+            No matter the path, no matter the way,<br>
+            I'll always be here, come what may.</p>
+            <button onclick="restartJourney()">Start Over</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
