@@ -1,126 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Special Message</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For Yuvika ❤️</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body, html {
+      height: 100%;
+      overflow: hidden;
+      background: #fce4ec;
+    }
+    .slide {
+      width: 100vw;
+      height: 100vh;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      flex-direction: column;
+      padding: 20px;
+      position: relative;
+      z-index: 1;
+    }
+    .slide.active {
+      display: flex;
+    }
+    .slide img {
+      max-width: 90%;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(0,0,0,0.2);
+      margin-bottom: 20px;
+    }
+    .text {
+      font-size: 2rem;
+      color: #d81b60;
+      min-height: 3em;
+    }
+    .typing {
+      border-right: 3px solid #d81b60;
+      white-space: nowrap;
+      overflow: hidden;
+      width: 0;
+      animation: typing 4s steps(40, end) forwards, blink 0.75s step-end infinite;
+    }
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+    .btns, .next-btn {
+      margin-top: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      margin: 10px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .yes { background-color: #4caf50; color: white; }
+    .no { background-color: #f44336; color: white; }
+    .next-btn button { background-color: #1976d2; color: white; }
+    @media (max-width: 600px) {
+      .text { font-size: 1.2rem; }
+      button { font-size: 0.9rem; padding: 8px 16px; }
+    }
+    .heart {
+      width: 20px;
+      height: 20px;
+      position: fixed;
+      top: -30px;
+      background: red;
+      transform: rotate(45deg);
+      animation: fall 5s linear infinite;
+      z-index: 0;
+    }
+    .heart::before,
+    .heart::after {
+      content: '';
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      background: red;
+      border-radius: 50%;
+    }
+    .heart::before { top: -10px; left: 0; }
+    .heart::after { left: -10px; top: 0; }
+    @keyframes fall {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+  </style>
 </head>
 <body>
-    <div class="page" id="page1" active>
-        <div class="content">
-            <h1>What's your name?</h1>
-            <input type="text" id="nameInput" placeholder="Enter your name">
-            <button onclick="nextPage(1)">Next</button>
-        </div>
-    </div>
+  <audio autoplay loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
 
-    <div class="page" id="page2">
-        <div class="content">
-            <h1>Yuvika,</h1>
-            <p>I really enjoyed meeting you...from zog</p>
-            <button onclick="nextPage(2)">Next</button>
-        </div>
-    </div>
+  <script>
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+      document.body.appendChild(heart);
+      setTimeout(() => { heart.remove(); }, 5000);
+    }
+    setInterval(createHeart, 300);
+  </script>
 
-    <div class="page" id="page3">
-        <div class="content">
-            <h1>I wanted to share something important with you...</h1>
-            <button onclick="nextPage(3)">Next</button>
-        </div>
-    </div>
+  <div id="slides-container"></div>
 
-    <div class="page" id="page4">
-        <div class="content">
-            <h1>It's something between you and me...</h1>
-            <button onclick="nextPage(4)">Next</button>
-        </div>
-    </div>
+  <script>
+    const slideData = [
+      { content: '<div class="text typing">Yuvika, I really enjoyed meeting you... from Zog</div>' },
+      { content: '<div class="text typing">I wanted to share something important with you...</div>' },
+      { content: '<div class="text typing">It\'s something between you and me... Don\'t tell anyone 🤫</div>' },
+      { content: '<div class="text" style="font-size: 5rem;">🤐</div>' },
+      { content: '<img src="WhatsApp Image 2025-03-20 at 20.52.55_750fc292.jpg" alt="Image 2">' },
+      { content: '<img src="WhatsApp Image 2025-03-20 at 20.52.55_922adc69.jpg" alt="Image 3">' },
+      { content: '<div class="text typing">Dekho mai risk le rha hun...</div>' },
+      { content: '<div class="text typing">Will you be my partner?</div><div class="btns"><button class="yes" onclick="showResult(\'yes\')">Yes</button><button class="no" onclick="showResult(\'no\')">No</button></div>' },
+      { content: '<div class="text">Thank you for saying yes! You have made me the happiest person! ❤️</div><div class="next-btn"><button onclick="startOver()">Start Over</button></div>' },
+      { content: `<div class="text">
+        In my heart you'll forever stay<br>
+        No matter the distance, no matter the time,<br>
+        My love for you will always shine.<br><br>
+        With each passing day, I fall even more,<br>
+        Into a love I can't ignore.<br><br>
+        I hope you feel the same way too,<br>
+        For my feelings are honest, pure, and true.<br><br>
+        Will you be mine forevermore?<br>
+        Together, let's explore what love has in store.<br><br>
+        No matter the path, no matter the way,<br>
+        I'll always be here, come what may.
+      </div><div class="next-btn"><button onclick="goBackToChoice()">Back</button><button onclick="startOver()">Start Over</button></div>` }
+    ];
 
-    <div class="page" id="page5">
-        <div class="content">
-            <h1>Don't tell anyone...</h1>
-            <button onclick="nextPage(5)">Next</button>
-        </div>
-    </div>
+    const container = document.getElementById('slides-container');
 
-    <div class="page" id="page6">
-        <div class="content">
-            <h1>🤫</h1>
-            <button onclick="nextPage(6)">Next</button>
-        </div>
-    </div>
+    slideData.forEach((data, index) => {
+      const slide = document.createElement('div');
+      slide.className = 'slide';
+      slide.id = 'slide' + index;
+      slide.innerHTML = data.content + (index < 7 ? '<div class="next-btn"><button onclick="nextSlide()">Next</button></div>' : '');
+      container.appendChild(slide);
+    });
 
-    <div class="page" id="page7">
-        <div class="content">
-            <h1>Dekho mai risk le rha hun...</h1>
-            <div class="button-container">
-                <button onclick="previousPage(7)" class="back-btn">Back</button>
-                <button onclick="nextPage(7)">Next</button>
-            </div>
-        </div>
-    </div>
+    let current = 0;
+    const slides = document.querySelectorAll('.slide');
+    slides[0].classList.add('active');
 
-    <div class="page" id="page8">
-        <div class="content">
-            <div class="image-container">
-                <img src="WhatsApp Image 2025-03-20 at 20.52.55_922adc69.jpg" alt="Special moment" class="special-image">
-            </div>
-            <div class="button-container">
-                <button onclick="previousPage(8)" class="back-btn">Back</button>
-                <button onclick="nextPage(8)">Next</button>
-            </div>
-        </div>
-    </div>
+    function showSlide(index) {
+      slides.forEach((s, i) => {
+        s.classList.remove('active');
+        if (i === index) s.classList.add('active');
+      });
+      current = index;
+    }
 
-    <div class="page" id="page9">
-        <div class="content">
-            <div class="image-container">
-                <img src="WhatsApp Image 2025-03-20 at 20.52.55_750fc292.jpg" alt="Special moment" class="special-image">
-            </div>
-            <div class="button-container">
-                <button onclick="previousPage(9)" class="back-btn">Back</button>
-                <button onclick="nextPage(9)">Next</button>
-            </div>
-        </div>
-    </div>
+    function nextSlide() {
+      if (current < 7) {
+        current++;
+        showSlide(current);
+      }
+    }
 
-    <div class="page" id="page10">
-        <div class="content">
-            <h1>Will you be my partner?</h1>
-            <div class="choice-buttons">
-                <button onclick="showResponse('yes')" class="yes-btn">Yes</button>
-                <button onclick="showResponse('no')" class="no-btn">No</button>
-            </div>
-        </div>
-    </div>
+    function showResult(answer) {
+      if (answer === 'yes') {
+        showSlide(8);
+      } else {
+        showSlide(9);
+      }
+    }
 
-    <div class="page" id="response-yes">
-        <div class="content">
-            <h1>Thank you for saying Yes! ❤️</h1>
-            <p>You've made me the happiest person!</p>
-            <button onclick="restartJourney()">Start Over</button>
-        </div>
-    </div>
+    function goBackToChoice() {
+      showSlide(7);
+    }
 
-    <div class="page" id="response-no">
-        <div class="content">
-            <h1>In my heart you'll forever stay</h1>
-            <p>No matter the distance, no matter the time,<br>
-            My love for you will always shine.<br><br>
-            With each passing day, I fall even more,<br>
-            Into a love I can't ignore.<br><br>
-            I hope you feel the same way too,<br>
-            For my feelings are honest, pure, and true.<br><br>
-            Will you be mine forevermore?<br>
-            Together, let's explore what love has in store.<br><br>
-            No matter the path, no matter the way,<br>
-            I'll always be here, come what may.</p>
-            <button onclick="restartJourney()">Start Over</button>
-        </div>
-    </div>
-
-    <script src="script.js"></script>
+    function startOver() {
+      showSlide(0);
+    }
+  </script>
 </body>
-</html> 
+</html>
